@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.imolczek.lab.liferay.applicantservice">
+	<namespace>APPLICANT</namespace>
+	<entity local-service="true" name="Applicant" remote-service="false" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="applicantId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="applicantName" type="String" />
+		<column name="applicantSurname" type="String" />
+		<column name="applicantEmail" type="String" />
+		<column name="applicantBirthDate" type="Date" />
+		<column name="applicationSubmissionDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="applicationSubmissionDate" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="ApplicantEmail" return-type="Collection">
+			<finder-column name="applicantEmail" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+	</entity>
+</service-builder>

@@ -1,0 +1,9 @@
+Bundle-Name: liferay-test.applicant-service-api
+Bundle-SymbolicName: com.imolczek.lab.liferay.applicantservice.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.imolczek.lab.liferay.applicantservice.exception,\
+	com.imolczek.lab.liferay.applicantservice.model,\
+	com.imolczek.lab.liferay.applicantservice.service,\
+	com.imolczek.lab.liferay.applicantservice.service.persistence
+-includeresource: META-INF/service.xml=../liferay-test.applicant-service-service/service.xml
