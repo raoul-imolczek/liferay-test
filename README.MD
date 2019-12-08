@@ -1,5 +1,7 @@
 # Liferay application form sample
 
+This project is built for Liferay Portal 7.2
+
 This sample projects consists of two modules:
  - **liferay-test.applicant-service**: A service builder component to persist application requests
  - **liferay-test.form-portlet**: An application form portlet
