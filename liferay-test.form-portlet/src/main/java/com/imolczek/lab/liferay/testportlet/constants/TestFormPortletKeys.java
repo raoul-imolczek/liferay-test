@@ -24,6 +24,10 @@ public class TestFormPortletKeys {
 	 */
 	public static final String CAPTCHA_RESOURCE_ID = "/form/captcha";
 	
+	// Configuration
+	
+	public static final String CONFIRMATION_EMAIL_CONFIGURATION_PID = "com.imolczek.lab.liferay.testportlet.configuration.ConfirmationEmailConfiguration";
+	
 	// Attributes
 	
 	/**

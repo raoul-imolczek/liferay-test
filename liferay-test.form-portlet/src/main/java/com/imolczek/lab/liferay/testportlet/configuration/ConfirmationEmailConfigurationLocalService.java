@@ -6,6 +6,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
 
+import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
@@ -15,7 +16,7 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
  *
  */
 @Component(
-		configurationPid = "com.imolczek.lab.liferay.testportlet.configuration.ConfirmationEmailConfiguration",
+		configurationPid = TestFormPortletKeys.CONFIRMATION_EMAIL_CONFIGURATION_PID,
 		service = ConfirmationEmailConfigurationLocalService.class
 		)
 public class ConfirmationEmailConfigurationLocalService {

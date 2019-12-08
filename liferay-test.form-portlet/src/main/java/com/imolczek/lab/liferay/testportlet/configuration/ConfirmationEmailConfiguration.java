@@ -1,5 +1,6 @@
 package com.imolczek.lab.liferay.testportlet.configuration;
 
+import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 import aQute.bnd.annotation.metatype.Meta;
@@ -7,7 +8,7 @@ import aQute.bnd.annotation.metatype.Meta;
 @ExtendedObjectClassDefinition(
 	    category = "Other", scope = ExtendedObjectClassDefinition.Scope.SYSTEM
 	)
-@Meta.OCD(id = "com.imolczek.lab.liferay.testportlet.configuration.ConfirmationEmailConfiguration")
+@Meta.OCD(id = TestFormPortletKeys.CONFIRMATION_EMAIL_CONFIGURATION_PID)
 public interface ConfirmationEmailConfiguration {
 
     @Meta.AD(
