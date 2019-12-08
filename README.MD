@@ -22,6 +22,14 @@ This module is an application form
 
 ## Configuration and deployment
 
+### Build with maven
+
+Run the following command to build the project
+
+```
+mvn clean install
+```
+
 ### Deployment of modules
 
 Deploy the following jar files into the `LIFERAY_HOME/deploy` directory:
