@@ -9,19 +9,29 @@ import org.osgi.service.component.annotations.Modified;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
-@ExtendedObjectClassDefinition(
-	    category = "Other", scope = ExtendedObjectClassDefinition.Scope.SYSTEM
-	)
+/**
+ * The configuration service for the Confirmation email properties
+ * @author Fabian
+ *
+ */
 @Component(
 		configurationPid = "com.imolczek.lab.liferay.testportlet.configuration.ConfirmationEmailConfiguration",
 		service = ConfirmationEmailConfigurationLocalService.class
 		)
 public class ConfirmationEmailConfigurationLocalService {
 
+	/**
+	 * Get the email address of the sender
+	 * @return
+	 */
 	public String getFromEmail() {
 		return configuration.fromEmail();
 	}
 
+	/**
+	 * Get the name of the sender to be displayed in the signature
+	 * @return
+	 */
 	public String getSenderName() {
 		return configuration.senderName();
 	}

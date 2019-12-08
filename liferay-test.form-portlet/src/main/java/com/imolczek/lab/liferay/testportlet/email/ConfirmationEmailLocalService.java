@@ -22,12 +22,21 @@ public class ConfirmationEmailLocalService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ConfirmationEmailLocalService.class);
 
+	/**
+	 * Send a confirmation email
+	 * @param applicantEmail
+	 * @param applicantName
+	 * @param applicantSurname
+	 * @throws AddressException
+	 */
 	public void sendConfirmationEmail(String applicantEmail, String applicantName, String applicantSurname) throws AddressException {
 		MailMessage mailMessage = new MailMessage();
 		
+		// Get the sender name and email address from the configuration
 		String senderName = confirmationEmailConfigurationLocalService.getSenderName();
 		String fromEmail = confirmationEmailConfigurationLocalService.getFromEmail();
 
+		// Check if the configuration is correct
 		if("".equals(senderName)) {
 			LOG.warn("Failed to send confirmation email: sender name is not configured");
 			throw new ConfirmationEmailConfigurationException("Empty sender name!");
@@ -41,14 +50,12 @@ public class ConfirmationEmailLocalService {
 			throw new ConfirmationEmailConfigurationException("Invalid sender email address!");
 		}
 		
+		// Prepare the message
 		InternetAddress from = new InternetAddress(fromEmail);
 		mailMessage.setFrom(from);
-		
 		InternetAddress to = new InternetAddress(applicantEmail);
 		mailMessage.setTo(to);
-		
 		mailMessage.setSubject("Application confirmation");
-		
 		mailMessage.setBody(
 				"Dear " + applicantName + " " + applicantSurname + ",\n" +
 				"\n" +
@@ -57,7 +64,8 @@ public class ConfirmationEmailLocalService {
 				"Yours sincerely,\n" +
 				senderName
 				);
-		
+
+		// Send the email
 		MailServiceUtil.sendEmail(mailMessage );		
 	}
 	

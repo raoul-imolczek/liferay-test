@@ -43,16 +43,20 @@ public class TestFormPortlet extends MVCPortlet {
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
 		
+		// Generate an action URL to submit the form
+		// See SubmitFormMVCActionCommand.java
 		ActionURL submitFormActionURL = renderResponse.createActionURL();
 		submitFormActionURL.getActionParameters().setValue("javax.portlet.action", TestFormPortletKeys.SUBMIT_FORM_ACTION);
 		renderRequest.setAttribute(TestFormPortletKeys.SUBMIT_FORM_ACTION_URL, submitFormActionURL);
 
+		// Generate a resource URL to deliver the captcha image
+		// See CaptchaMVCResourceCommand.java
 		ResourceURL captchaURL = renderResponse.createResourceURL();
 		captchaURL.setResourceID(TestFormPortletKeys.CAPTCHA_RESOURCE_ID);
 		renderRequest.setAttribute(TestFormPortletKeys.CAPTCHA_RESOURCE_URL, captchaURL);
 		
+		// To be called last
 		super.doView(renderRequest, renderResponse);
-
 	}
 	
 }

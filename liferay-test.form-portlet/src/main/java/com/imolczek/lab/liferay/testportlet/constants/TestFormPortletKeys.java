@@ -41,4 +41,9 @@ public class TestFormPortletKeys {
 	 */
 	public static final String CAPTCHA_INVALID = "captchaInvalid";
 	
+	/**
+	 * The applicant's email
+	 */
+	public static final String APPLICANT_EMAIL = "applicantEmail";
+	
 }
