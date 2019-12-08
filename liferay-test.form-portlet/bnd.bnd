@@ -1,4 +1,4 @@
-Bundle-Name: testformportlet
+Bundle-Name: liferay-test.form-portlet
 Bundle-SymbolicName: com.imolczek.lab.liferay.testportlet
 Bundle-Version: 1.0.0
 
