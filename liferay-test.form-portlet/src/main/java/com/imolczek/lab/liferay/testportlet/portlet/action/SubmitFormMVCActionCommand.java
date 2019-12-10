@@ -1,14 +1,12 @@
 package com.imolczek.lab.liferay.testportlet.portlet.action;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.mail.internet.AddressException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletException;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -17,20 +15,19 @@ import org.slf4j.LoggerFactory;
 
 import com.imolczek.lab.liferay.applicantservice.model.Applicant;
 import com.imolczek.lab.liferay.applicantservice.service.ApplicantLocalService;
+import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ApplicationFormDataValidationException;
 import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ConfirmationEmailConfigurationException;
 import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
 import com.imolczek.lab.liferay.testportlet.email.ConfirmationEmailLocalService;
+import com.imolczek.lab.liferay.testportlet.portlet.action.model.SubmitFormData;
 import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalService;
-import com.liferay.mail.kernel.model.MailMessage;
-import com.liferay.mail.kernel.service.MailServiceUtil;
 import com.liferay.portal.kernel.captcha.CaptchaException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 @Component(
 	    immediate = true,
@@ -47,15 +44,20 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 
-		// Get the applicant's information from the form POST and validate the data
-		// Any of those methods may raise an exception
-		String applicantName = getApplicantName(actionRequest);
-		String applicantSurname = getApplicantSurname(actionRequest);
-		String applicantEmail = getApplicantEmail(actionRequest);
-		Date applicantBirthDate = getApplicantBirthDate(actionRequest);
+		// Fetch form data from action request (may raise a ParseException on the birth date)
+		SubmitFormData submitFormData = getSubmitFormData(actionRequest);
+		
+		// And validate the data (may raise an ApplicationFormDataValidationException)
+		validateFormData(actionRequest, submitFormData);
+		
+		// Setting variables for validated form data
+		String applicantName = submitFormData.getName();
+		String applicantSurname = submitFormData.getSurname();
+		String applicantEmail = submitFormData.getEmail();
+		Date applicantBirthDate = submitFormData.getBirthdate();
 		
 		// Compute today's date
-		Date applicationSubmissionDate = Calendar.getInstance().getTime();;
+		Date applicationSubmissionDate = Calendar.getInstance().getTime();
 				
 		// Check the captcha and raise an exception on failure
 		checkCaptcha(actionRequest);
@@ -70,9 +72,51 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		// If this operation fails, no alert feedback to the users but WARN in the logs
 		sendConfirmationEmail(applicantName, applicantSurname, applicantEmail);
 		
-		// Set email as an attribute to dispplay on the confirmation JSP
+		// Set email as an attribute to display on the confirmation JSP
 		actionRequest.setAttribute(TestFormPortletKeys.APPLICANT_EMAIL, applicantEmail);
 		actionResponse.getRenderParameters().setValue("jspPage", "/confirmation.jsp");
+	}
+
+	/**
+	 * Validate form data (apply rules)
+	 * @param actionRequest to add Session Errors to be displayed
+	 * @param submitFormData the form data to validate
+	 */
+	private void validateFormData(ActionRequest actionRequest, SubmitFormData submitFormData) {
+		try {
+			submitFormData.validate();
+		} catch (ApplicationFormDataValidationException afdve) {
+			SessionErrors.add(actionRequest, ParseException.class.getName());
+			LOG.info("The user submitted invalid data");
+			throw afdve;
+		}
+	}
+
+	/**
+	 * Get form data from action request input
+	 * @param actionRequest the action request bearing the form input data
+	 * @return A SubmitFormData object
+	 * @throws ParseException If the birth date is not parseable
+	 */
+	private SubmitFormData getSubmitFormData(ActionRequest actionRequest) throws ParseException {
+		
+		// Use ParamUtil to fetch form data from action request and fill missing input fields with ""
+		String formDataName = ParamUtil.get(actionRequest, "name", "");
+		String formDataSurname = ParamUtil.get(actionRequest, "surname", "");
+		String formDataBirthDate = ParamUtil.get(actionRequest, "birthdate", "");
+		String formDataEmail = ParamUtil.get(actionRequest, "email", "");
+		
+		SubmitFormData submitFormData;
+		
+		// Get the applicant's information from the form POST 
+		try {
+			submitFormData = new SubmitFormData(formDataName, formDataSurname, formDataBirthDate, formDataEmail);
+		} catch (ParseException pe) {
+			SessionErrors.add(actionRequest, ParseException.class.getName());
+			LOG.info("The user submitted an invalid date");
+			throw pe;
+		}
+		return submitFormData;
 	}
 
 	/**
@@ -92,97 +136,6 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 	
-	/**
-	 * Get the email address from the action request
-	 * @param actionRequest
-	 * @return the email address
-	 * @throws PortletException
-	 */
-	private String getApplicantEmail(ActionRequest actionRequest) throws PortletException {
-		String applicantEmail = ParamUtil.get(actionRequest, "email", "");
-		
-		// Check if the applicant email is not empty
-		if("".equals(applicantEmail)) {
-			LOG.info("The user submitted an empty email");
-			SessionErrors.add(actionRequest, PortletException.class.getName());
-			throw new PortletException("Empty applicant email");			
-			
-		// Check if the email address is valid
-		} else if (!Validator.isEmailAddress(applicantEmail)){
-			LOG.info("The submitted email is invalid");
-			SessionErrors.add(actionRequest, PortletException.class.getName());
-			throw new PortletException("Invalid email");			
-		}
-		
-		return applicantEmail;
-	}
-
-	/**
-	 * Get the applicant's surname from the action request
-	 * @param actionRequest
-	 * @return
-	 * @throws PortletException
-	 */
-	private String getApplicantSurname(ActionRequest actionRequest) throws PortletException {
-		String applicantSurname = ParamUtil.get(actionRequest, "surname", "");
-		
-		// Check if the applicant's surname is empty
-		if("".equals(applicantSurname)) {
-			LOG.info("The user submitted an empty surname");
-			SessionErrors.add(actionRequest, PortletException.class.getName());
-			throw new PortletException("Empty applicant surname");			
-		}		
-		
-		return applicantSurname;
-	}
-
-	/**
-	 * Get the applicant's name from the action request
-	 * @param actionRequest
-	 * @return
-	 * @throws PortletException
-	 */
-	private String getApplicantName(ActionRequest actionRequest) throws PortletException {
-		String applicantName = ParamUtil.get(actionRequest, "name", "");
-		
-		// Check if the applicant's name is empty
-		if("".equals(applicantName)) {
-			LOG.info("The user submitted an empty name");
-			SessionErrors.add(actionRequest, PortletException.class.getName());
-			throw new PortletException("Empty applicant name");			
-		}		
-		
-		return applicantName;
-	}
-
-	/**
-	 * Get the applicant's birth date from the action request
-	 * @param actionRequest
-	 * @return
-	 * @throws ParseException
-	 * @throws PortletException
-	 */
-	private Date getApplicantBirthDate(ActionRequest actionRequest) throws ParseException, PortletException {
-		
-		String applicantBirthDateString = ParamUtil.get(actionRequest, "birthdate", "");
-
-		// This is the expected format of the birth date
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-		Date applicantBirthDate;
-		
-		// Try to parse the birth date
-		try {
-			applicantBirthDate = format.parse(applicantBirthDateString);
-		} catch (ParseException pe) {
-			LOG.info("The user submitted an invalid birth date");
-			SessionErrors.add(actionRequest, ParseException.class.getName());
-			throw pe;
-		}
-				
-		return applicantBirthDate;
-	}
-
 	/**
 	 * Check if the captcha is valid
 	 * @param actionRequest
@@ -219,12 +172,25 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		applicantLocalService.addApplicant(applicant);
 	}
 	
-	@Reference
 	private ApplicantLocalService applicantLocalService;
 
 	@Reference
+	public void setApplicantLocalService(ApplicantLocalService applicantLocalService) {
+		this.applicantLocalService = applicantLocalService;
+	}
+	
 	private CounterLocalService counterLocalService;
-
+	
 	@Reference
+	public void setCounterLocalService(CounterLocalService counterLocalService) {
+		this.counterLocalService = counterLocalService;
+	}
+
 	private ConfirmationEmailLocalService confirmationEmailLocalService;
+	
+	@Reference
+	public void setConfirmationEmailLocalService(ConfirmationEmailLocalService confirmationEmailLocalService) {
+		this.confirmationEmailLocalService = confirmationEmailLocalService;
+	}
+
 }
