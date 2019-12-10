@@ -49,5 +49,20 @@ public class TestFormPortletKeys {
 	 * The applicant's email
 	 */
 	public static final String APPLICANT_EMAIL = "applicantEmail";
-	
+
+	/**
+	 * The applicant's name
+	 */
+	public static final String APPLICANT_NAME = "applicantName";
+
+	/**
+	 * The applicant's surname
+	 */
+	public static final String APPLICANT_SURNAME = "applicantSurname";
+
+	/**
+	 * The applicant's birth date
+	 */
+	public static final String APPLICANT_BIRTHDATE = "applicantBirthdate";
+
 }

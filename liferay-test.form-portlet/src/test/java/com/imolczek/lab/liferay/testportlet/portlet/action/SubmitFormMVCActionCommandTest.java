@@ -18,6 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.imolczek.lab.liferay.applicantservice.model.Applicant;
 import com.imolczek.lab.liferay.applicantservice.service.ApplicantLocalService;
 import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ApplicationFormDataValidationException;
+import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
 import com.imolczek.lab.liferay.testportlet.email.ConfirmationEmailLocalService;
 import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalService;
@@ -87,10 +88,10 @@ public class SubmitFormMVCActionCommandTest {
 	@Test
 	public void testCorrectInputData() {
 
-		when(ParamUtil.get(actionRequest, "name", "")).thenReturn("John");
-		when(ParamUtil.get(actionRequest, "surname", "")).thenReturn("Doe");
-		when(ParamUtil.get(actionRequest, "birthdate", "")).thenReturn("1980-01-01");
-		when(ParamUtil.get(actionRequest, "email", "")).thenReturn("john.doe@liferay.com");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_NAME, "")).thenReturn("John");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_SURNAME, "")).thenReturn("Doe");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_BIRTHDATE, "")).thenReturn("1980-01-01");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_EMAIL, "")).thenReturn("john.doe@liferay.com");
 		
 		try {
 			command.doProcessAction(actionRequest, actionResponse);
@@ -103,10 +104,10 @@ public class SubmitFormMVCActionCommandTest {
 	@Test
 	public void testApplicationFormDataValidationException() {
 
-		when(ParamUtil.get(actionRequest, "name", "")).thenReturn("John");
-		when(ParamUtil.get(actionRequest, "surname", "")).thenReturn("Doe");
-		when(ParamUtil.get(actionRequest, "birthdate", "")).thenReturn("1980-01-01");
-		when(ParamUtil.get(actionRequest, "email", "")).thenReturn("");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_NAME, "")).thenReturn("John");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_SURNAME, "")).thenReturn("Doe");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_BIRTHDATE, "")).thenReturn("1980-01-01");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_EMAIL, "")).thenReturn("");
 
 		try {
 			command.doProcessAction(actionRequest, actionResponse);
@@ -125,10 +126,10 @@ public class SubmitFormMVCActionCommandTest {
 	@Test
 	public void testIncorrectCaptcha() {
 
-		when(ParamUtil.get(actionRequest, "name", "")).thenReturn("John");
-		when(ParamUtil.get(actionRequest, "surname", "")).thenReturn("Doe");
-		when(ParamUtil.get(actionRequest, "birthdate", "")).thenReturn("1980-01-01");
-		when(ParamUtil.get(actionRequest, "email", "")).thenReturn("john.doe@liferay.com");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_NAME, "")).thenReturn("John");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_SURNAME, "")).thenReturn("Doe");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_BIRTHDATE, "")).thenReturn("1980-01-01");
+		when(ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_EMAIL, "")).thenReturn("john.doe@liferay.com");
 
 		try {
 			PowerMockito.doThrow(new CaptchaTextException()).when(CaptchaUtil.class, "check", actionRequest);

@@ -72,8 +72,6 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		// If this operation fails, no alert feedback to the users but WARN in the logs
 		sendConfirmationEmail(applicantName, applicantSurname, applicantEmail);
 		
-		// Set email as an attribute to display on the confirmation JSP
-		actionRequest.setAttribute(TestFormPortletKeys.APPLICANT_EMAIL, applicantEmail);
 		actionResponse.getRenderParameters().setValue("jspPage", "/confirmation.jsp");
 	}
 
@@ -86,7 +84,7 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		try {
 			submitFormData.validate();
 		} catch (ApplicationFormDataValidationException afdve) {
-			SessionErrors.add(actionRequest, ParseException.class.getName());
+			SessionErrors.add(actionRequest, ApplicationFormDataValidationException.class.getName());
 			LOG.info("The user submitted invalid data");
 			throw afdve;
 		}
@@ -101,10 +99,17 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 	private SubmitFormData getSubmitFormData(ActionRequest actionRequest) throws ParseException {
 		
 		// Use ParamUtil to fetch form data from action request and fill missing input fields with ""
-		String formDataName = ParamUtil.get(actionRequest, "name", "");
-		String formDataSurname = ParamUtil.get(actionRequest, "surname", "");
-		String formDataBirthDate = ParamUtil.get(actionRequest, "birthdate", "");
-		String formDataEmail = ParamUtil.get(actionRequest, "email", "");
+		String formDataName = ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_NAME, "");
+		String formDataSurname = ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_SURNAME, "");
+		String formDataBirthDate = ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_BIRTHDATE, "");
+		String formDataEmail = ParamUtil.get(actionRequest, TestFormPortletKeys.APPLICANT_EMAIL, "");
+		
+		// Set data as attributes so that they are not lost in the form if a validation fails
+		actionRequest.setAttribute(TestFormPortletKeys.APPLICANT_NAME, formDataName);
+		actionRequest.setAttribute(TestFormPortletKeys.APPLICANT_SURNAME, formDataSurname);
+		actionRequest.setAttribute(TestFormPortletKeys.APPLICANT_BIRTHDATE, formDataBirthDate);
+		actionRequest.setAttribute(TestFormPortletKeys.APPLICANT_EMAIL, formDataEmail);
+
 		
 		SubmitFormData submitFormData;
 		

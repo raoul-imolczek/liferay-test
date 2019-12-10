@@ -5,25 +5,25 @@
 		<aui:fieldset label="Please fill in the form">
 			<aui:row>
 				<aui:col width="50">
-					<aui:input label="liferay-test.form-portlet.name" name="name" type="text" required="true">
+					<aui:input label="liferay-test.form-portlet.name" name="applicantName" type="text" required="true" value="${applicantName}">
 						<aui:validator name="required" />
 					</aui:input>					
 				</aui:col>
 				<aui:col width="50">
-					<aui:input label="liferay-test.form-portlet.surname" name="surname" type="text" required="true">
+					<aui:input label="liferay-test.form-portlet.surname" name="applicantSurname" type="text" required="true" value="${applicantSurname}">
 						<aui:validator name="required" />
 					</aui:input>					
 				</aui:col>
 			</aui:row>
 			<aui:row>
 				<aui:col width="50">
-					<aui:input label="liferay-test.form-portlet.birthdate" name="birthdate" type="text" placeholder="1980-12-31" required="true" helpMessage="YYYY-MM-DD">
+					<aui:input label="liferay-test.form-portlet.birthdate" name="applicantBirthdate" type="text" placeholder="1980-12-31" required="true" helpMessage="YYYY-MM-DD" value="${applicantBirthdate}">
 						<aui:validator name="required" />
 						<aui:validator name="date" />
 					</aui:input>
 				</aui:col>				
 				<aui:col width="50">
-					<aui:input label="liferay-test.form-portlet.email" name="email" type="email" required="true">
+					<aui:input label="liferay-test.form-portlet.email" name="applicantEmail" type="email" required="true" value="${applicantEmail}">
 						<aui:validator name="required" />
 						<aui:validator name="email" />
 					</aui:input>
