@@ -4,6 +4,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: deploy-to-cloudsmith.sh
+  script: bash scripts/deploy-to-cloudsmith.sh
   on:
     branch: master  
