@@ -69,3 +69,8 @@ The file should contain the following properties:
 fromEmail=[the sender's email address]
 senderName=[the sender's name to be included in the email's signature]
 ```
+
+## Tests
+
+Some form data validation tests are implemented.
+There are some interesting tests relying on Mockito and Powermock!
