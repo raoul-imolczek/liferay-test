@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/raoul-imolczek/liferay-test.svg?branch=master)](https://travis-ci.org/raoul-imolczek/liferay-test)
 
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=raoul-imolczek_liferay-test)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
 # Liferay application form sample
 
 This project is built for Liferay Portal 7.2
