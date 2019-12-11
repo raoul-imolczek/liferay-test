@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/raoul-imolczek/liferay-test.svg?branch=master)](https://travis-ci.org/raoul-imolczek/liferay-test)
+
 # Liferay application form sample
 
 This project is built for Liferay Portal 7.2
