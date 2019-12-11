@@ -1,0 +1,3 @@
+cloudsmith push maven liferay-fabian/liferay --pom-file liferay-test.applicant-service/liferay-test.applicant-service-api/pom.xml liferay-test.applicant-service/liferay-test.applicant-service-api/target/liferay-test.applicant-service-api-1.0.0.jar
+cloudsmith push maven liferay-fabian/liferay --pom-file liferay-test.applicant-service/liferay-test.applicant-service-service/pom.xml liferay-test.applicant-service/liferay-test.applicant-service-service/target/liferay-test.applicant-service-service-1.0.0.jar
+cloudsmith push maven liferay-fabian/liferay --pom-file liferay-test.form-portlet/pom.xml liferay-test.form-portlet/target/liferay-test.form-portlet-1.0.0.jar

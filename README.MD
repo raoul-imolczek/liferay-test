@@ -74,3 +74,9 @@ senderName=[the sender's name to be included in the email's signature]
 
 Some form data validation tests are implemented.
 There are some interesting tests relying on Mockito and Powermock!
+
+## Binaries
+
+Builds are performed by travis on commits to the master branch.
+The binaries are available at Cloudsmith :
+https://cloudsmith.io/~liferay-fabian/repos/liferay/packages/
