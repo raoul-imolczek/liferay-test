@@ -1,4 +1,4 @@
-package com.imolczek.lab.liferay.testportlet.configuration.exceptions;
+package com.imolczek.lab.liferay.testportlet.exceptions;
 
 /**
  * Exception to be raised if the configuration for the sending of confirmation emails is incorrect

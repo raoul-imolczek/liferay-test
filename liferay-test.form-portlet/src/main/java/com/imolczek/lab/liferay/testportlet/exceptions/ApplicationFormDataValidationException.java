@@ -1,4 +1,4 @@
-package com.imolczek.lab.liferay.testportlet.configuration.exceptions;
+package com.imolczek.lab.liferay.testportlet.exceptions;
 
 public class ApplicationFormDataValidationException extends RuntimeException {
 

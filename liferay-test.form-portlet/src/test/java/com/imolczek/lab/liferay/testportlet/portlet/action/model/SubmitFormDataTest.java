@@ -1,12 +1,13 @@
 package com.imolczek.lab.liferay.testportlet.portlet.action.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
 import org.junit.Test;
 
-import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ApplicationFormDataValidationException;
+import com.imolczek.lab.liferay.testportlet.exceptions.ApplicationFormDataValidationException;
+import com.imolczek.lab.liferay.testportlet.exceptions.BirthDateFutureException;
 
 public class SubmitFormDataTest {
 
@@ -115,12 +116,12 @@ public class SubmitFormDataTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 			fail("The birth date is parseable and should not raise a ParseException");
-		} catch (ApplicationFormDataValidationException e) {
+		} catch (BirthDateFutureException e) {
 			// This is correct behaviour
 			return;
 		}
 		
-		fail("An ApplicationFormDataValidationException should have been thrown");
+		fail("A BirthDateFutureException should have been thrown");
 		
 	}
 

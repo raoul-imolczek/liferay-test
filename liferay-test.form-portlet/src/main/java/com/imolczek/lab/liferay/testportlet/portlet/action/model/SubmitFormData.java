@@ -8,7 +8,8 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ApplicationFormDataValidationException;
+import com.imolczek.lab.liferay.testportlet.exceptions.ApplicationFormDataValidationException;
+import com.imolczek.lab.liferay.testportlet.exceptions.BirthDateFutureException;
 import com.liferay.portal.kernel.util.Validator;
 
 public class SubmitFormData {
@@ -120,13 +121,13 @@ public class SubmitFormData {
 		
 	}
 
-	private void validateBirthDate() throws ApplicationFormDataValidationException {
+	private void validateBirthDate() throws BirthDateFutureException {
 		
 		Calendar calendar = Calendar.getInstance();
 		
 		if (this.birthdate.after(calendar.getTime())) {
 			LOG.info("The user submitted a birth date in the future");
-			throw new ApplicationFormDataValidationException("The birth date is in the future");			
+			throw new BirthDateFutureException("The birth date is in the future");			
 		}
 		
 	}

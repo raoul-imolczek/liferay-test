@@ -15,10 +15,11 @@ import org.slf4j.LoggerFactory;
 
 import com.imolczek.lab.liferay.applicantservice.model.Applicant;
 import com.imolczek.lab.liferay.applicantservice.service.ApplicantLocalService;
-import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ApplicationFormDataValidationException;
-import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ConfirmationEmailConfigurationException;
 import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
 import com.imolczek.lab.liferay.testportlet.email.ConfirmationEmailLocalService;
+import com.imolczek.lab.liferay.testportlet.exceptions.ApplicationFormDataValidationException;
+import com.imolczek.lab.liferay.testportlet.exceptions.BirthDateFutureException;
+import com.imolczek.lab.liferay.testportlet.exceptions.ConfirmationEmailConfigurationException;
 import com.imolczek.lab.liferay.testportlet.portlet.action.model.SubmitFormData;
 import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalService;
@@ -39,16 +40,31 @@ import com.liferay.portal.kernel.util.ParamUtil;
 	)
 public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 
+	protected static final String REASON = "reason";
 	private static final Logger LOG = LoggerFactory.getLogger(SubmitFormMVCActionCommand.class);
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 
+		SubmitFormData submitFormData;
 		// Fetch form data from action request (may raise a ParseException on the birth date)
-		SubmitFormData submitFormData = getSubmitFormData(actionRequest);
+		try {
+			submitFormData = getSubmitFormData(actionRequest);
+		} catch (ParseException e) {
+			actionRequest.setAttribute(REASON, ParseException.class);
+			return;
+		}
 		
 		// And validate the data (may raise an ApplicationFormDataValidationException)
-		validateFormData(actionRequest, submitFormData);
+		try {
+			validateFormData(actionRequest, submitFormData);
+		} catch (ApplicationFormDataValidationException e) {
+			actionRequest.setAttribute(REASON, ApplicationFormDataValidationException.class);
+			return;
+		} catch (BirthDateFutureException e) {
+			actionRequest.setAttribute(REASON, BirthDateFutureException.class);
+			return;
+		}
 		
 		// Setting variables for validated form data
 		String applicantName = submitFormData.getName();
@@ -60,7 +76,12 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		Date applicationSubmissionDate = Calendar.getInstance().getTime();
 				
 		// Check the captcha and raise an exception on failure
-		checkCaptcha(actionRequest);
+		try {
+			checkCaptcha(actionRequest);
+		} catch (CaptchaTextException e) {
+			actionRequest.setAttribute(REASON, CaptchaTextException.class);
+			return;
+		}
 
 		// Assume the captcha is valid (hiding a message on the JSP)
 		actionRequest.setAttribute(TestFormPortletKeys.CAPTCHA_INVALID, false);
@@ -73,6 +94,7 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 		sendConfirmationEmail(applicantName, applicantSurname, applicantEmail);
 		
 		actionResponse.getRenderParameters().setValue("jspPage", "/confirmation.jsp");
+
 	}
 
 	/**
@@ -80,14 +102,18 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 	 * @param actionRequest to add Session Errors to be displayed
 	 * @param submitFormData the form data to validate
 	 */
-	private void validateFormData(ActionRequest actionRequest, SubmitFormData submitFormData) {
+	private void validateFormData(ActionRequest actionRequest, SubmitFormData submitFormData) throws ApplicationFormDataValidationException, BirthDateFutureException {
 		try {
 			submitFormData.validate();
 		} catch (ApplicationFormDataValidationException afdve) {
 			SessionErrors.add(actionRequest, ApplicationFormDataValidationException.class.getName());
 			LOG.info("The user submitted invalid data");
 			throw afdve;
-		}
+		} catch (BirthDateFutureException afdve) {
+			SessionErrors.add(actionRequest, BirthDateFutureException.class.getName());
+			LOG.info("The user a birth date in the future");
+			throw afdve;
+		}	
 	}
 
 	/**

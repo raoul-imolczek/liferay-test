@@ -2,6 +2,7 @@ package com.imolczek.lab.liferay.testportlet.portlet.action;
 
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import javax.portlet.ActionRequest;
@@ -17,9 +18,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.imolczek.lab.liferay.applicantservice.model.Applicant;
 import com.imolczek.lab.liferay.applicantservice.service.ApplicantLocalService;
-import com.imolczek.lab.liferay.testportlet.configuration.exceptions.ApplicationFormDataValidationException;
 import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
 import com.imolczek.lab.liferay.testportlet.email.ConfirmationEmailLocalService;
+import com.imolczek.lab.liferay.testportlet.exceptions.ApplicationFormDataValidationException;
 import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
@@ -111,15 +112,12 @@ public class SubmitFormMVCActionCommandTest {
 
 		try {
 			command.doProcessAction(actionRequest, actionResponse);
-		} catch (ApplicationFormDataValidationException e) {
-			// This is correct
-			return;
 		} catch (Exception e) {
 			e.printStackTrace();
-			fail("This test case is not supposed to raise another exception than ApplicationFormDataValidationException");
+			fail("This test case is not supposed to raise an exception");
 		}
 
-		fail("This test case was supposed to raise a ApplicationFormDataValidationException");
+		verify(actionRequest).setAttribute(SubmitFormMVCActionCommand.REASON, ApplicationFormDataValidationException.class);
 
 	}
 
@@ -137,18 +135,15 @@ public class SubmitFormMVCActionCommandTest {
 			e.printStackTrace();
 			fail("Failed to mock CaptchaUtil");
 		}
-		
+
 		try {
 			command.doProcessAction(actionRequest, actionResponse);
-		} catch (CaptchaTextException e) {
-			// This is correct
-			return;
 		} catch (Exception e) {
 			e.printStackTrace();
-			fail("This test case is not supposed to raise another exception than CaptchaTextException");
+			fail("This test case is not supposed to raise an exception");
 		}
 
-		fail("This test case was supposed to raise a ApplicationFormDataValidationException");
-
+		verify(actionRequest).setAttribute(TestFormPortletKeys.CAPTCHA_INVALID, true);
+		
 	}	
 }
