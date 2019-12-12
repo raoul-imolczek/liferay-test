@@ -37,8 +37,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 )
 public class TestFormPortlet extends MVCPortlet {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(TestFormPortlet.class);
-
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {

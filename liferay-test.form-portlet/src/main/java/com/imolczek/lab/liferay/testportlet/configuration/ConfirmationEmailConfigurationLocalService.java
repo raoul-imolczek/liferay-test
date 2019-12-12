@@ -7,7 +7,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
 
 import com.imolczek.lab.liferay.testportlet.constants.TestFormPortletKeys;
-import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
 /**
@@ -15,6 +14,12 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
  * @author Fabian
  *
  */
+
+/*
+ * Making the ConfirmationEmailConfiguration configuration is a Liferay recommendation from the knowledge base
+ * https://portal.liferay.dev/docs/7-0/tutorials/-/knowledge_base/t/making-your-applications-configurable
+ */
+@java.lang.SuppressWarnings("squid:S3077")
 @Component(
 		configurationPid = TestFormPortletKeys.CONFIRMATION_EMAIL_CONFIGURATION_PID,
 		service = ConfirmationEmailConfigurationLocalService.class

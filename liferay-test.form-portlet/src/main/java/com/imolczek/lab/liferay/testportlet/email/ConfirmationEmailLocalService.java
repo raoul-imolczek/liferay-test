@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import com.imolczek.lab.liferay.testportlet.configuration.ConfirmationEmailConfigurationLocalService;
 import com.imolczek.lab.liferay.testportlet.exceptions.ConfirmationEmailConfigurationException;
-import com.imolczek.lab.liferay.testportlet.portlet.action.SubmitFormMVCActionCommand;
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailServiceUtil;
 import com.liferay.portal.kernel.util.Validator;

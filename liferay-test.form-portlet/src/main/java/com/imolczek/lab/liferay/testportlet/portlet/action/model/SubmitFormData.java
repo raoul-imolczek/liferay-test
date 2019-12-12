@@ -79,14 +79,14 @@ public class SubmitFormData {
 		return date;
 	}
 	
-	public void validate() throws ApplicationFormDataValidationException {
+	public void validate() {
 		validateName();
 		validateSurname();
 		validateBirthDate();
 		validateEmail();
 	}
 
-	private void validateEmail() throws ApplicationFormDataValidationException {
+	private void validateEmail() {
 
 		// Check if the applicant email is not empty
 		if("".equals(this.email)) {
@@ -101,7 +101,7 @@ public class SubmitFormData {
 
 	}
 
-	private void validateSurname() throws ApplicationFormDataValidationException {
+	private void validateSurname() {
 
 		// Check if the applicant's surname is empty
 		if("".equals(this.surname)) {
@@ -111,7 +111,7 @@ public class SubmitFormData {
 
 	}
 
-	private void validateName() throws ApplicationFormDataValidationException {
+	private void validateName() {
 		
 		// Check if the applicant's name is empty
 		if("".equals(this.name)) {
@@ -121,10 +121,11 @@ public class SubmitFormData {
 		
 	}
 
-	private void validateBirthDate() throws BirthDateFutureException {
+	private void validateBirthDate() {
 		
 		Calendar calendar = Calendar.getInstance();
 		
+		// Check if the applicant's birth date is in the past
 		if (this.birthdate.after(calendar.getTime())) {
 			LOG.info("The user submitted a birth date in the future");
 			throw new BirthDateFutureException("The birth date is in the future");			

@@ -5,6 +5,9 @@ package com.imolczek.lab.liferay.testportlet.constants;
  */
 public class TestFormPortletKeys {
 
+	private TestFormPortletKeys() {
+	}
+	
 	/**
 	 * Test Form Portlet name
 	 */

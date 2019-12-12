@@ -30,6 +30,7 @@ public class CaptchaMVCResourceCommand extends BaseMVCResourceCommand {
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
 
+		LOG.info("Generate captcha");
 		try {
 			CaptchaUtil.serveImage(resourceRequest, resourceResponse);
 		}

@@ -102,7 +102,7 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 	 * @param actionRequest to add Session Errors to be displayed
 	 * @param submitFormData the form data to validate
 	 */
-	private void validateFormData(ActionRequest actionRequest, SubmitFormData submitFormData) throws ApplicationFormDataValidationException, BirthDateFutureException {
+	private void validateFormData(ActionRequest actionRequest, SubmitFormData submitFormData) {
 		try {
 			submitFormData.validate();
 		} catch (ApplicationFormDataValidationException afdve) {
@@ -173,7 +173,7 @@ public class SubmitFormMVCActionCommand extends BaseMVCActionCommand {
 	 * @throws CaptchaException
 	 * @throws CaptchaTextException
 	 */
-	private void checkCaptcha(ActionRequest actionRequest) throws CaptchaException, CaptchaTextException {
+	private void checkCaptcha(ActionRequest actionRequest) throws CaptchaException {
 		try {
 			CaptchaUtil.check(actionRequest);
 		}
