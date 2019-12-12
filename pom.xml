@@ -20,7 +20,6 @@
 		<sonar.organization>raoul-imolczek</sonar.organization>
 		<sonar.projectKey>liferay-test</sonar.projectKey>
 		<sonar.moduleKey>${artifactId}</sonar.moduleKey>
-		<sonar.tests>junit</sonar.tests>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.junit.reportsPath>build/test-reports</sonar.junit.reportsPath>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
