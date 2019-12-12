@@ -1,6 +1,6 @@
-Travis: [![Build Status](https://travis-ci.org/raoul-imolczek/liferay-test.svg?branch=master)](https://travis-ci.org/raoul-imolczek/liferay-test)
+[![Build Status](https://travis-ci.org/raoul-imolczek/liferay-test.svg?branch=master)](https://travis-ci.org/raoul-imolczek/liferay-test)
 
-Sonar: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
 
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=code_smells)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
