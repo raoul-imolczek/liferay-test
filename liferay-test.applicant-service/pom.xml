@@ -17,6 +17,10 @@
 
 	<packaging>pom</packaging>
 
+	<properties>
+		<sonar.skip>true</sonar.skip>
+	</properties>
+
 	<modules>
 		<module>liferay-test.applicant-service-api</module>
 		<module>liferay-test.applicant-service-service</module>

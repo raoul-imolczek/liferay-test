@@ -14,6 +14,10 @@
 	</parent>
 
 	<artifactId>liferay-test.applicant-service-service</artifactId>
+
+	<properties>
+		<sonar.skip>true</sonar.skip>
+	</properties>
 	
 	<dependencies>
 		<dependency>

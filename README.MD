@@ -2,13 +2,16 @@ Travis: [![Build Status](https://travis-ci.org/raoul-imolczek/liferay-test.svg?b
 
 Sonar: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
 
-[![Comments (%)](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=comment_lines_density)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=comment_lines_density)
-[![Open issues](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=open_issues)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=open_issues)
-[![Code smells](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=code_smells)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=code_smells)
-[![Technical debt](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=sqale_index)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=sqale_index)
-[![Bugs](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=bugs)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=bugs)
-[![Reliability remediation effort](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=reliability_remediation_effort)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=reliability_remediation_effort)
-[![Coverage](https://sonarcloud.io/api/badges/measure?key=raoul-imolczek_liferay-test&metric=coverage)](https://sonarcloud.io/component_measures?id=raoul-imolczek_liferay-test&metric=coverage)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=code_smells)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=coverage)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=ncloc)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=security_rating)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=sqale_index)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=raoul-imolczek_liferay-test&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=raoul-imolczek_liferay-test)
+
 # Liferay application form sample
 
 This project is built for Liferay Portal 7.2
