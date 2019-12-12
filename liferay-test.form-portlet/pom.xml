@@ -96,24 +96,4 @@
 		</dependency>		
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.liferay</groupId>
-				<artifactId>com.liferay.css.builder</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<baseDir>src/main/resources/META-INF/resources</baseDir>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

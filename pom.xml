@@ -21,7 +21,6 @@
 		<sonar.projectKey>liferay-test</sonar.projectKey>
 		<sonar.moduleKey>${artifactId}</sonar.moduleKey>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.junit.reportsPath>build/test-reports</sonar.junit.reportsPath>
 	</properties>
 
 	<dependencyManagement>
@@ -219,7 +218,7 @@
 						<exclude>**/META-INF/resources/**/.sass-cache/</exclude>
 					</excludes>
 				</configuration>
-			</plugin>		
+			</plugin>
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
@@ -227,4 +226,5 @@
             </plugin>
 		</plugins>
 	</build>
+
 </project>

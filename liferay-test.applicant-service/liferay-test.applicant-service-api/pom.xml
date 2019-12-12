@@ -41,4 +41,5 @@
 			<artifactId>com.liferay.osgi.service.tracker.collections</artifactId>
 		</dependency>
 	</dependencies>
+	
 </project>
