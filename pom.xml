@@ -22,9 +22,6 @@
 		<sonar.moduleKey>${artifactId}</sonar.moduleKey>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.junit.reportsPath>build/test-reports</sonar.junit.reportsPath>
-		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<sonar.jacoco.reportPath>target/test-reports/jacoco.exec</sonar.jacoco.reportPath>	
-		<jacoco.reportPath>target/test-reports/jacoco.exec</jacoco.reportPath>	
 	</properties>
 
 	<dependencyManagement>
@@ -166,24 +163,9 @@
 				<artifactId>com.liferay.petra.lang</artifactId>
 				<version>3.1.1</version>
 				<scope>test</scope>
-			</dependency>
-			<dependency>
-			    <groupId>org.jacoco</groupId>
-			    <artifactId>org.jacoco.agent</artifactId>
-			    <classifier>runtime</classifier>
-			    <scope>test</scope>
-			    <version>0.8.5</version>
-			</dependency>			
+			</dependency>		
 		</dependencies>
 	</dependencyManagement>
-	
-	<dependencies>
-		<dependency>
-		    <groupId>org.jacoco</groupId>
-		    <artifactId>org.jacoco.agent</artifactId>
-		    <classifier>runtime</classifier>
-		</dependency>
-	</dependencies>
 	
 	<modules>
 		<module>liferay-test.form-portlet</module>
@@ -237,52 +219,7 @@
 						<exclude>**/META-INF/resources/**/.sass-cache/</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-                <configuration>
-				    <forkCount>3</forkCount>
-				    <reuseForks>true</reuseForks>
-				    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-                    <argLine>${jacoco.agent.ut.arg}</argLine>
-                    <!-- Specific to generate mapping between tests and covered code -->
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>org.sonar.java.jacoco.JUnitListener</value>
-                        </property>
-                    </properties>
-                    <!-- test failure ignore -->
-                    <testFailureIgnore>true</testFailureIgnore>
-                </configuration>
-            </plugin>			
-			<plugin>
-			    <groupId>org.jacoco</groupId>
-			    <artifactId>jacoco-maven-plugin</artifactId>
-			    <version>0.8.5</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-                        <configuration>
-                            <destFile>${sonar.jacoco.reportPath}</destFile>
-                            <propertyName>jacoco.agent.ut.arg</propertyName>
-                            <append>true</append>
-                        </configuration>						
-					</execution>
-					<!-- attached to Maven test phase -->
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>			
+			</plugin>		
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>

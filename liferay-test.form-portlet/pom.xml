@@ -93,7 +93,7 @@
 		<dependency>
 			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.petra.lang</artifactId>
-		</dependency>
+		</dependency>		
 	</dependencies>
 
 	<build>
