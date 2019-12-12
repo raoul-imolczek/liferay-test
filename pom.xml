@@ -20,6 +20,11 @@
 		<sonar.organization>raoul-imolczek</sonar.organization>
 		<sonar.projectKey>liferay-test</sonar.projectKey>
 		<sonar.moduleKey>${artifactId}</sonar.moduleKey>
+		<sonar.tests>junit</sonar.tests>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.junit.reportsPath>build/test-reports</sonar.junit.reportsPath>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.jacoco.reportPath>build/test-reports/jacoco.exec</sonar.jacoco.reportPath>		
 	</properties>
 
 	<dependencyManagement>
@@ -218,6 +223,32 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.8.5</version>
+			    <executions>
+			      <execution>
+			        <id>default-prepare-agent</id>
+			        <goals>
+			            <goal>prepare-agent</goal>
+			        </goals>
+			      </execution>
+			      <execution>
+			        <id>default-report</id>
+			        <phase>prepare-package</phase>
+			        <goals>
+			            <goal>report</goal>
+			        </goals>
+			      </execution>
+			      <execution>
+			          <id>default-check</id>
+			          <goals>
+			              <goal>check</goal>
+			          </goals>
+			      </execution>
+			    </executions>
+			</plugin>			
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
