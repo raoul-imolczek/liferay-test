@@ -4,7 +4,7 @@ addons:
     organization: "raoul-imolczek" # the key of the org you chose at step #3
 script:
   # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=raoul-imolczek_liferay-test
 before_deploy:
   - pip install --user cloudsmith-cli
 deploy:
